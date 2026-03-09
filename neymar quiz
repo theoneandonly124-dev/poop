@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Neymar Jr. Ultimate Quiz</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@stlite/browser@0.57.0/build/style.css" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://cdn.jsdelivr.net/npm/@stlite/browser@0.57.0/build/stlite.js"></script>
+    <script>
+      stlite.mount({
+        requirements: [], // Add any extra libraries here if needed
+        files: {
+          "app.py": `
+import streamlit as st
+
+# Custom CSS for the brick background and Neymar aesthetic
+st.markdown("""
+    <style>
+    .stApp {
+        background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                    url('https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=2070&auto=format&fit=crop');
+        background-size: cover;
+    }
+    .quiz-card {
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 20px;
+        border-radius: 15px;
+        border-left: 10px solid #009c3b;
+    }
+    h1, h3 {
+        color: #FFD700 !important;
+        text-shadow: 2px 2px #000;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+st.title("⚽ Neymar Jr. Graffiti Quiz")
+st.write("Test your knowledge of the Brazilian Legend!")
+
+# Quiz Questions
+questions = [
+    {
+        "q": "Which club did Neymar join after leaving Santos?",
+        "options": ["Real Madrid", "Barcelona", "PSG"],
+        "a": "Barcelona"
+    },
+    {
+        "q": "How many goals did Neymar score in the 2014 World Cup?",
+        "options": ["2", "4", "6"],
+        "a": "4"
+    },
+    {
+        "q": "What is Neymar's full name?",
+        "options": ["Neymar Silva Santos", "Neymar da Silva Santos Júnior", "Neymar Jr. Santos"],
+        "a": "Neymar da Silva Santos Júnior"
+    }
+]
+
+score = 0
+for i, item in enumerate(questions):
+    st.markdown(f"### Question {i+1}")
+    answer = st.radio(item["q"], item["options"], key=f"q{i}")
+    if answer == item["a"]:
+        score += 1
+
+if st.button("Check My Results"):
+    st.balloons()
+    st.header(f"Final Score: {score}/{len(questions)}")
+    if score == len(questions):
+        st.success("Absolute Legend! You know Neymar perfectly!")
+    else:
+        st.info("Good effort! Can you get a perfect score?")
+`
+        }
+      }, document.getElementById("root"));
+    </script>
+  </body>
+</html>
